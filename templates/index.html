@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <!--
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>WikiBot</title>
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!--prevent css caching-->
+  <link rel="stylesheet" type="text/css" href="static/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>"/> 
+</head>
+
+<body>
+  <div class="center" class="tooltip" id="query">
+  <h1> <i class="fa fa-book"></i>  WikiBot </h1>
+  <p> Ask WikiBot a question. </p>
+  <p> WikiBot will attempt to find the answer(s) on Wikipedia. </p>
+  <p> Some tips for using WikiBot: 
+  <p> 1. Capitalizing proper nouns is optional, but highly recommended.</p>
+  <p> 2. Rare acronyms, typos or too much question complexity may result in slow processing time and/or faulty answers. </p>
+  <p> 3. WikiBot's knowledge is limited to information found on Wikipedia.</p>
+  <p> 4. Certain forms of questions may not be supported; if WikiBot is unable to answer a question, try rewording it. </p>
+  <form action="/submit" method="POST">
+    <button type="submit" class="button" id="button" onclick="btnLoad()">
+    <i class="fa fa-search"></i>
+    </button>
+    <input type="text" placeholder="Your Question..." name="question" id="txtbox">
+  </form>
+  </div>
+  <div class="center" id="results">
+  <h2> You asked: {{question}} </h2>
+  <h2> Answer(s): {{display_result}}</h2>
+  <p> Retrieved from: <a href={{display_url}} target="_blank">{{display_url}}</a></p>
+  </div>
+  <p id="result" display="none"> {{display_result}} </p>
+</body>
+</html>
+
+<script>
+  function btnLoad() {
+    document.getElementById("button").innerHTML = '<i class="fa fa-refresh fa-spin"></i>';
+    document.getElementById("results").style.visibility = 'hidden';
+  }
+  window.onload = function() {
+    if (document.getElementById("result").innerText=="") {
+      document.getElementById("results").style.visibility = 'hidden';
+    }
+    document.getElementById("button").onclick = btnLoad;
+  }
+</script>
